@@ -14,6 +14,7 @@
 
 
 import util
+import pdb
 
 PRINT = True
 
@@ -59,19 +60,38 @@ class PerceptronClassifier:
 
         for iteration in range(self.max_iterations):
             print("Starting iteration ", iteration, "...")
-            for i in range(len(trainingData)):  # training data
-                pdb.set_trace()  # esto es un break point para que puedas comprobar el formato de los datos
-                ########################################################################################
-                # 1. i es el indice de un ejemplo (un item, f(x) de un ejemplo) del conjunto de entrenamiento.
-                # 2. Asi pues, en cada vuelta de este loop se trata un solo ejemplo
-                #    por cada ejemplo calculareis el producto punto (dotProduct) w*item
-                #    NOTAS: Recordad que cada ejemplo viene representado por varios rasgos (o features), es decir, es un vector de rasgos, tantos como nos marca el atributo self.features.
-                #          Asi cada ejemplo es de dimension 1 filas y self.features).
-                #          La dimension del vector w tambien es self.features, es decir, habra tantos pesos en w_rasgo dentro de w como rasgos haya en cada item de ejemplo
-                #          Recordad tambien que es una clasificacion multiclase en este caso. Hay tantas clases como nos marca el atributo self.legalLabels
-                #########################################################################################
-                "*** YOUR CODE HERE ***"
-                util.raiseNotDefined()
+
+            # Iterar las instancias del conjunto train
+            for i in range(len(trainingData)): 
+                
+                topScore = -1
+                best_label = None
+                instance = trainingData[i]
+                
+                # Iterar los valores de clase poosibles
+                for label in self.legalLabels:
+
+                    # Calcular el producto  escalar
+                    output = instance * self.weights[label]
+
+                    # El valor de clase que mejor putput consiga sera el predicho
+                    if output > topScore:
+                        topScore = output
+                        best_label = label
+
+                # Obtener el valor de clase real
+                real_label = trainingLabels[i]
+
+                # Si la clase predicha no es correcta --> Actualizar pesos
+                if best_label != real_label:
+
+                    # Acercar a la clase real
+                    self.weights[real_label] = self.weights[real_label] + instance
+
+                    # Alejar de la clase mal predicha
+                    self.weights[best_label] = self.weights[best_label] - instance
+
+                    
 
     def classify(self, data):
         """
