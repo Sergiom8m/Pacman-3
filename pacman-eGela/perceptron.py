@@ -72,7 +72,7 @@ class PerceptronClassifier:
                 for label in self.legalLabels:
 
                     # Calcular el producto  escalar
-                    output = instance * self.weights[label]
+                    output = self.weights[label].__mul__(instance)
 
                     # El valor de clase que mejor putput consiga sera el predicho
                     if output > topScore:

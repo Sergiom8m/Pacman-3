@@ -48,5 +48,19 @@ class PerceptronClassifierPacman(PerceptronClassifier):
         for iteration in range(self.max_iterations):
             print("Starting iteration ", iteration, "...")
             for i in range(len(trainingData)):
-                "*** YOUR CODE HERE ***"
-                util.raiseNotDefined()
+                
+                # Calcular la clase predicha
+                best_label = self.classify([trainingData[i]])[0]
+
+                # Obtener el valor de clase real
+                real_label = trainingLabels[i]
+
+                # Si la clase predicha no es correcta --> Actualizar pesos
+                if best_label != real_label:
+
+                    # Acercar a la clase real
+                    self.weights = self.weights + trainingData[i][0][real_label]
+
+                    # Alejar de la clase mal predicha
+                    self.weights = self.weights - trainingData[i][0][best_label]
+
