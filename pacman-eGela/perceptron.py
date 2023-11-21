@@ -54,9 +54,7 @@ class PerceptronClassifier:
         (and thus represents a vector a values).
         """
 
-        self.features = trainingData[0].keys()  # could be useful later
-        # DO NOT ZERO OUT YOUR WEIGHTS BEFORE STARTING TRAINING, OR
-        # THE AUTOGRADER WILL LIKELY DEDUCT POINTS.
+        self.features = trainingData[0].keys()  
 
         for iteration in range(self.max_iterations):
             print("Starting iteration ", iteration, "...")
